@@ -1,10 +1,16 @@
-document.querySelector('#runbox').checked = localStorage.getItem("enabled");
+// chrome.storage.sync.clear();
 document.addEventListener('DOMContentLoaded', function () {
-	var runbox = document.querySelector('#runbox')
-	runbox.addEventListener('change', changeHandler);
+	var enableButton = document.getElementById("enableButton");
+	var disableButton = document.getElementById("disableButton");
+	enableButton.addEventListener("click", enable);
+	disableButton.addEventListener("click", disable);
 });
 
-function changeHandler(){
-	localStorage.setItem("enabled", runbox.checked);
-	console.log(localStorage.getItem("enabled"));
+function changeHandler(){ 
+	saveEnabled();
+}
+
+function saveEnabled(){
+	chrome.storage.sync.set({"enabled": runbox.checked}, function() {
+	});
 }
